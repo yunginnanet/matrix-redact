@@ -1,0 +1,5 @@
+{
+  "baseUrl": "https://matrix-client.matrix.org/",
+  "accessToken": "",
+  "userId": "@example:matrix.org"
+}
