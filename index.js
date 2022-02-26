@@ -12,7 +12,6 @@ client.startClient();
 
 client.once('sync', function (state, prevState, res) {
   console.log(state);
-  
   client.getRoom(argv.r)
     .getTimelineSets()
     .forEach(set => {
@@ -20,12 +19,14 @@ client.once('sync', function (state, prevState, res) {
         function scanTImeline() {
           client.paginateEventTimeline(timeline, {backwards: true, limit: 1000}).then((a) => {
             timeline.getEvents().forEach(event => {
-              if (event.event.sender == config.userId && (event.event.content.msgtype == "m.text" || event.event.content.msgtype == "m.image")) {
+              if (event.event.sender == config.userId && (event.event.type == "m.room.encrypted" || event.event.content.msgtype == "m.text" || event.event.content.msgtype == "m.image")) {
                 console.log("Redacting event:")
                 console.log(event.event.content.body)
                 setTimeout(() => {
                   client.redactEvent(argv.r, event.event.event_id)
                 }, 3000)
+              } else {
+                console.log("Skipping event. msgtype: %j, sender: %j, event type: %j", event.event.content.msgtype, event.event.sender, event.event.type)
               }
             })
             if (a) {
