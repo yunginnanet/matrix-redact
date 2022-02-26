@@ -1,4 +1,4 @@
-# matrix-redact
+# [matrix-redact](https://codeberg.org/video-prize-ranch/matrix-redact) (fork)
 Redact all your Matrix events in a room.
 > ⚠️ This will put a lot of load on your homeserver, it's probably not be a good idea to run this on large rooms or on public homeservers.
 
